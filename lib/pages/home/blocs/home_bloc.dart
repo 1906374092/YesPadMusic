@@ -14,7 +14,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       try {
         List<PlayListModel> result =
             await repository.getInternetHotPlayListData();
-        emit(SuccessState(hotPlaylistData: result));
+        List<PlayListModel> personalizedModels =
+            await repository.getPersonalizedPlayListData();
+        emit(SuccessState(
+            hotPlaylistData: result,
+            personalizedPlaylistData: personalizedModels));
       } catch (e) {
         emit(ErrorState(errorMessage: '请求失败请稍后再试'));
       }
@@ -25,19 +29,27 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 @immutable
 sealed class HomeState {
   get hotPlayList;
+  get personalizedPlayList;
 }
 
 class InitialState extends HomeState {
   @override
   get hotPlayList => [];
+  @override
+  get personalizedPlayList => [];
 }
 
 class SuccessState extends HomeState {
   final List<PlayListModel> hotPlaylistData;
-  SuccessState({required this.hotPlaylistData});
+  final List<PlayListModel> personalizedPlaylistData;
+  SuccessState(
+      {required this.hotPlaylistData, required this.personalizedPlaylistData});
 
   @override
   get hotPlayList => hotPlaylistData;
+
+  @override
+  get personalizedPlayList => personalizedPlaylistData;
 }
 
 class ErrorState extends HomeState {
@@ -45,4 +57,7 @@ class ErrorState extends HomeState {
   ErrorState({required this.errorMessage});
   @override
   get hotPlayList => [];
+
+  @override
+  get personalizedPlayList => [];
 }

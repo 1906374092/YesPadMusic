@@ -35,13 +35,15 @@ class HttpManager {
     _dio.options.receiveTimeout = const Duration(seconds: 60);
     _dio.interceptors.add(CustomInterceptors());
     //cookie_manager
-    final Directory appDocDir = await getApplicationDocumentsDirectory();
-    final String appDocPath = appDocDir.path;
-    final jar = PersistCookieJar(
-      ignoreExpires: true,
-      storage: FileStorage("$appDocPath/.cookies/"),
-    );
-    _dio.interceptors.add(CookieManager(jar));
+    try {
+      final Directory appDocDir = await getApplicationDocumentsDirectory();
+      final String appDocPath = appDocDir.path;
+      final jar = PersistCookieJar(
+        ignoreExpires: true,
+        storage: FileStorage("$appDocPath/.cookies/"),
+      );
+      _dio.interceptors.add(CookieManager(jar));
+    } catch (e) {}
   }
 
   dynamic post(String path, {required Map<String, dynamic> params}) async {

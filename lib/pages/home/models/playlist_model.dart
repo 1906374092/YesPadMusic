@@ -8,6 +8,8 @@ class PlayListModel {
 
   factory PlayListModel.fromMap(Map map) {
     return PlayListModel(
-        name: map['name'], id: map['id'], coverImgUrl: map['coverImgUrl']);
+        name: map['name'],
+        id: map['id'],
+        coverImgUrl: map['coverImgUrl'] ?? map['picUrl']);
   }
 }

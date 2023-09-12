@@ -20,4 +20,9 @@ class HomeApi {
   Future<Map> getInternetHotPlaylist() async {
     return await HttpManager.instance.get('/top/playlist?limit=5&order=hot');
   }
+
+  Future<Map> getPersonalizedPlayList() async {
+    return await HttpManager.instance
+        .get('/personalized?limit=10&realIP=211.161.244.70');
+  }
 }
