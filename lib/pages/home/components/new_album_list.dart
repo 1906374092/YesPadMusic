@@ -1,39 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:yes_play_music/component/music/album_cover.dart';
 import 'package:yes_play_music/pages/home/components/header.dart';
-import 'package:yes_play_music/pages/home/models/playlist_model.dart';
+import 'package:yes_play_music/pages/home/models/album_model.dart';
 import 'package:yes_play_music/utils/size.dart';
 
-class PersonalizedPlaylist extends StatelessWidget {
-  final String listTitle;
-  final List<PlayListModel> dataSorce;
-  const PersonalizedPlaylist(
-      {super.key, required this.listTitle, required this.dataSorce});
+class NewAlbumList extends StatelessWidget {
+  final List<AlbumModel> dataSource;
+  const NewAlbumList({super.key, required this.dataSource});
 
   @override
   Widget build(BuildContext context) {
     double screenWidth = SizeUtil.screenWidth(context);
     double itemWidth = screenWidth / 5;
-    double aspectRatio = (itemWidth + 55) / itemWidth;
+    double aspectRatio = (itemWidth + 80) / itemWidth;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Header(title: listTitle),
+        const Header(title: '新专速递'),
         SizedBox(
           width: screenWidth,
-          height: (screenWidth / 5 + 55) * 2,
+          height: (screenWidth / 5 + 80) * 2,
           child: GridView.builder(
             padding: const EdgeInsets.all(0),
             scrollDirection: Axis.horizontal,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2, childAspectRatio: aspectRatio),
-            itemCount: dataSorce.length,
+            itemCount: dataSource.length,
             itemBuilder: (BuildContext context, int index) {
-              PlayListModel model = dataSorce[index];
+              AlbumModel model = dataSource[index];
               return AlbumCover(
-                  id: model.id,
-                  name: model.name,
-                  coverImageUrl: model.coverImgUrl);
+                id: model.id,
+                name: model.name,
+                coverImageUrl: model.picUrl,
+                artist: model.artist!.name,
+              );
             },
           ),
         ),

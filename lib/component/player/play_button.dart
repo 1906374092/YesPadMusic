@@ -12,7 +12,7 @@ class BlurPlayButton extends StatelessWidget {
       width: size,
       height: size,
       decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.8),
+          color: Colors.white.withOpacity(0.3),
           borderRadius: BorderRadius.circular(size / 2)),
       child: ClipRRect(
           borderRadius: BorderRadius.circular(size / 2),

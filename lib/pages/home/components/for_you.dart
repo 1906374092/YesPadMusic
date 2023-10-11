@@ -2,14 +2,18 @@ import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:yes_play_music/component/play_button.dart';
+import 'package:yes_play_music/component/player/play_button.dart';
 import 'package:yes_play_music/pages/home/components/header.dart';
+import 'package:yes_play_music/pages/home/components/personal_fm.dart';
 import 'package:yes_play_music/pages/home/models/playlist_model.dart';
+import 'package:yes_play_music/pages/home/models/song_model.dart';
 import 'package:yes_play_music/utils/size.dart';
 
 class ForYouWidget extends StatefulWidget {
   final List<PlayListModel> dataSource;
-  const ForYouWidget({super.key, required this.dataSource});
+  final List<SongModel> fmData;
+  const ForYouWidget(
+      {super.key, required this.dataSource, required this.fmData});
   @override
   State<ForYouWidget> createState() => _ForYouWidgetState();
 }
@@ -88,8 +92,8 @@ class _ForYouWidgetState extends State<ForYouWidget> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           SizedBox(
-                            width: 90,
-                            height: 90,
+                            width: 100,
+                            height: 100,
                             child: Text('每日推荐',
                                 style: TextStyle(
                                     color: Colors.white,
@@ -101,7 +105,15 @@ class _ForYouWidgetState extends State<ForYouWidget> {
                         ],
                       )),
                 ],
-              )
+              ),
+              const Spacer(),
+              Container(
+                  width: imageWidth,
+                  height: imageHeight,
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(15)),
+                  clipBehavior: Clip.hardEdge,
+                  child: PersonalFM(dataSource: widget.fmData))
             ],
           )
         ],

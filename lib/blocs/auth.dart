@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 
 sealed class AuthEvent {}
 
@@ -10,11 +11,12 @@ final class LoginEvent extends AuthEvent {
 final class LogoutEvent extends AuthEvent {}
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  AuthBloc() : super(AuthState()) {
-    on<LoginEvent>((event, emit) => state.cookie = event.cookie);
-  }
+  AuthBloc() : super(LogoutState());
 }
 
-class AuthState {
-  String cookie = '';
-}
+@immutable
+sealed class AuthState {}
+
+class LoginState extends AuthState {}
+
+class LogoutState extends AuthState {}

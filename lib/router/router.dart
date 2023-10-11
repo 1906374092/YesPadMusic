@@ -1,11 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yes_play_music/pages/login/blocs/login_page_bloc.dart';
+import 'package:yes_play_music/pages/login/data/login_repository.dart';
+import 'package:yes_play_music/pages/login/login.dart';
 
 class AppRouter {
-  //页面路由配置
-  final Map _routes = {};
-
   Route? onGenerateRoute(RouteSettings settings) {
-    return _routes[settings.name];
+    switch (settings.name) {
+      case '/login':
+        return MaterialPageRoute(
+            fullscreenDialog: true,
+            builder: (context) => BlocProvider(
+                  create: (context) =>
+                      LoginFormBloc(repository: LoginRepository()),
+                  child: const LoginPage(),
+                ));
+      default:
+    }
+    return null;
   }
 
   void dispose() {}

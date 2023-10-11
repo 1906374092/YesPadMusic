@@ -9,7 +9,7 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ThemeBlock, ThemeState>(
+    return BlocBuilder<ThemeBloc, ThemeState>(
       builder: (context, themeState) {
         return Padding(
           padding: const EdgeInsets.all(15),

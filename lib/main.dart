@@ -20,7 +20,7 @@ class MainApp extends StatefulWidget {
 class _MainAppState extends State<MainApp> {
   final _router = AppRouter();
   static final _authBloc = AuthBloc();
-  static final _themeBloc = ThemeBlock();
+  static final _themeBloc = ThemeBloc();
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(

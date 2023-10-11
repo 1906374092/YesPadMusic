@@ -29,8 +29,8 @@ class HttpManager {
   _configDio() async {
     _dio = Dio();
     _dio.options.baseUrl = Config.DEBUG
-        ? "https://music.mereith.com/api"
-        : "https://music.mereith.com/api";
+        ? "https://music.liyp.cc/api"
+        : "https://music.liyp.cc/api";
     _dio.options.connectTimeout = const Duration(seconds: 60);
     _dio.options.receiveTimeout = const Duration(seconds: 60);
     _dio.interceptors.add(CustomInterceptors());

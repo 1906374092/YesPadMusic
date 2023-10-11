@@ -9,7 +9,7 @@ class PlayerBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ThemeBlock, ThemeState>(builder: (context, themeState) {
+    return BlocBuilder<ThemeBloc, ThemeState>(builder: (context, themeState) {
       return Container(
         width: View.of(context).physicalSize.width,
         height: 80,

@@ -4,8 +4,10 @@ import 'package:yes_play_music/blocs/theme.dart';
 import 'package:yes_play_music/component/footer.dart';
 import 'package:yes_play_music/component/loading.dart';
 import 'package:yes_play_music/pages/home/blocs/home_bloc.dart';
+import 'package:yes_play_music/pages/home/components/artist_toplist.dart';
 import 'package:yes_play_music/pages/home/components/for_you.dart';
 import 'package:yes_play_music/pages/home/components/internet_hotlist.dart';
+import 'package:yes_play_music/pages/home/components/new_album_list.dart';
 import 'package:yes_play_music/pages/home/components/personalized_playlist.dart';
 import 'package:yes_play_music/pages/home/data/home_repository.dart';
 
@@ -19,7 +21,7 @@ class HomePage extends StatelessWidget {
         lazy: false,
         create: (context) =>
             HomeBloc(repository: repository)..add(OnGetDataEvent()),
-        child: BlocBuilder<ThemeBlock, ThemeState>(
+        child: BlocBuilder<ThemeBloc, ThemeState>(
           builder: (context, state) {
             return BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
               if (state is ErrorState) {
@@ -29,7 +31,7 @@ class HomePage extends StatelessWidget {
               } else if (state is SuccessState) {
                 return SingleChildScrollView(
                     padding: const EdgeInsets.only(top: 15),
-                    child: BlocBuilder<ThemeBlock, ThemeState>(
+                    child: BlocBuilder<ThemeBloc, ThemeState>(
                       builder: (context, themeState) {
                         return Column(
                           children: [
@@ -40,7 +42,13 @@ class HomePage extends StatelessWidget {
                                 listTitle: '推荐歌单',
                                 dataSorce: state.personalizedPlaylistData),
                             ForYouWidget(
-                                dataSource: state.personalizedPlaylistData),
+                              dataSource: state.personalizedPlaylistData,
+                              fmData: state.personalFMData,
+                            ),
+                            ArtistToplist(dataSource: state.artistListData),
+                            NewAlbumList(dataSource: state.newAlbumListData),
+                            SongsList(
+                                listData: state.topListData, listTitle: '排行榜'),
                             const Footer()
                           ],
                         );

@@ -8,15 +8,17 @@ class AlbumCover extends StatelessWidget {
   final num id;
   final String name;
   final String coverImageUrl;
+  final String? artist;
   const AlbumCover(
       {super.key,
       required this.id,
       required this.name,
-      required this.coverImageUrl});
+      required this.coverImageUrl,
+      this.artist});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ThemeBlock, ThemeState>(builder: (context, state) {
+    return BlocBuilder<ThemeBloc, ThemeState>(builder: (context, state) {
       double flexSize = SizeUtil.screenWidth(context) / 5 - 15 * 2;
       double imageSize = flexSize > 155 ? flexSize : 155;
       return Container(
@@ -41,7 +43,21 @@ class AlbumCover extends StatelessWidget {
               padding: const EdgeInsets.only(top: 15),
               child: Text(
                 name,
-                style: TextStyle(color: state.mainTextColor),
+                style: TextStyle(
+                    color: state.mainTextColor,
+                    fontWeight: FontWeight.bold,
+                    overflow: TextOverflow.ellipsis),
+              ),
+            ),
+            Visibility(
+              visible: artist != null,
+              child: Container(
+                width: imageSize,
+                padding: const EdgeInsets.only(top: 8),
+                child: Text(
+                  artist ?? 'error',
+                  style: TextStyle(color: state.mainTextColor),
+                ),
               ),
             )
           ],

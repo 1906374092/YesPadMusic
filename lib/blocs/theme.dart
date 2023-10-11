@@ -8,8 +8,8 @@ final class LightThemeEvent extends ThemeEvent {}
 
 final class DarkThemeEvent extends ThemeEvent {}
 
-class ThemeBlock extends Bloc<ThemeEvent, ThemeState> {
-  ThemeBlock() : super(LightThemeState()) {
+class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
+  ThemeBloc() : super(LightThemeState()) {
     on<LightThemeEvent>((event, emit) => emit(LightThemeState()));
     on<DarkThemeEvent>((event, emit) => emit(DarkThemeState()));
   }
