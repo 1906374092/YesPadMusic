@@ -11,10 +11,14 @@ class Tools {
     }
   }
 
-  static int getTimeInterval({int dayoffset = 0}) {
+  static int getTimeIntervalWithOffset({int dayoffset = 0}) {
     DateTime now = DateTime.now();
     DateTime base = DateTime(now.year, now.month, now.day + dayoffset);
     return base.millisecondsSinceEpoch;
+  }
+
+  static int getNowTimeInterval() {
+    return DateTime.now().microsecondsSinceEpoch;
   }
 
   static String getDateString(int interval) {

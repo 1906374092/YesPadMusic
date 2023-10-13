@@ -21,6 +21,8 @@ sealed class ThemeState {
   get mainTextColor;
   get indicatorColor;
   get secondTextColor;
+  get lightBlueColor;
+  get darkBlueColor;
 }
 
 final class LightThemeState extends ThemeState {
@@ -33,6 +35,10 @@ final class LightThemeState extends ThemeState {
   get indicatorColor => ColorUtil.fromHex('#2A46E5');
   @override
   get secondTextColor => ColorUtil.fromHex('#adadad');
+  @override
+  get lightBlueColor => ColorUtil.fromHex('#b3c5fd');
+  @override
+  get darkBlueColor => ColorUtil.fromHex('#304de3');
 }
 
 final class DarkThemeState extends ThemeState {
@@ -44,4 +50,8 @@ final class DarkThemeState extends ThemeState {
   get indicatorColor => ColorUtil.fromHex('#2742E4');
   @override
   get secondTextColor => ColorUtil.fromHex('#adadad');
+  @override
+  get lightBlueColor => ColorUtil.fromHex('#b3c5fd');
+  @override
+  get darkBlueColor => ColorUtil.fromHex('#304de3');
 }

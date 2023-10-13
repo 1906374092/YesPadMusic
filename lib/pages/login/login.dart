@@ -24,10 +24,12 @@ class LoginPage extends StatelessWidget {
             body: Container(
               padding: EdgeInsets.only(
                   top: 30,
-                  left: SizeUtil.screenWidth(context) / 4,
-                  right: SizeUtil.screenWidth(context) / 4,
+                  // left: SizeUtil.screenWidth(context) / 4,
+                  // right: SizeUtil.screenWidth(context) / 4,
                   bottom: 30),
-              child: SingleChildScrollView(
+              child: SizedBox(
+                width: SizeUtil.screenWidth(context),
+                height: SizeUtil.screenHeight(context) - 60,
                 child: Column(
                   children: [
                     SizedBox(
@@ -46,10 +48,14 @@ class LoginPage extends StatelessWidget {
                         }
                       },
                     ),
-                    Text(
-                      'YesPlayMusic 承诺不会保存你的任何账号信息到云端。你的密码会在本地进行 MD5 加密后再传输到网易云 API。YesPlayMusic 并非网易云官方网站，输入账号信息前请慎重考虑。 你也可以前往 YesPlayMusic 的 GitHub 源代码仓库 自行构建并使用自托管的网易云 API。',
-                      style: TextStyle(
-                          color: themeState.secondTextColor, fontSize: 12),
+                    const Spacer(),
+                    SizedBox(
+                      width: SizeUtil.screenWidth(context) / 2,
+                      child: Text(
+                        'YesPlayMusic 承诺不会保存你的任何账号信息到云端。你的密码会在本地进行 MD5 加密后再传输到网易云 API。YesPlayMusic 并非网易云官方网站，输入账号信息前请慎重考虑。 你也可以前往 YesPlayMusic 的 GitHub 源代码仓库 自行构建并使用自托管的网易云 API。',
+                        style: TextStyle(
+                            color: themeState.secondTextColor, fontSize: 12),
+                      ),
                     )
                   ],
                 ),

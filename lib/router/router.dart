@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yes_play_music/pages/login/blocs/login_page_bloc.dart';
-import 'package:yes_play_music/pages/login/data/login_repository.dart';
 import 'package:yes_play_music/pages/login/login.dart';
 
 class AppRouter {
@@ -11,8 +10,7 @@ class AppRouter {
         return MaterialPageRoute(
             fullscreenDialog: true,
             builder: (context) => BlocProvider(
-                  create: (context) =>
-                      LoginFormBloc(repository: LoginRepository()),
+                  create: (context) => LoginFormBloc(),
                   child: const LoginPage(),
                 ));
       default:
