@@ -1,3 +1,5 @@
+import 'package:yes_play_music/utils/tools.dart';
+
 class PlayListModel {
   final String name;
   final num id;
@@ -10,6 +12,8 @@ class PlayListModel {
     return PlayListModel(
         name: map['name'],
         id: map['id'],
-        coverImgUrl: map['coverImgUrl'] ?? map['picUrl']);
+        coverImgUrl: map['coverImgUrl'] != null
+            ? Tools.imageTransfer(map['coverImgUrl'])
+            : Tools.imageTransfer(map['picUrl']));
   }
 }

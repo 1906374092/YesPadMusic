@@ -62,4 +62,9 @@ class Tools {
     DateTime resultDate = DateTime.fromMillisecondsSinceEpoch(timeInterval);
     return "${resultDate.year}年${resultDate.month}月${resultDate.day}日";
   }
+
+  //图片防盗链
+  static String imageTransfer(String imageUrl) {
+    return 'https://images.weserv.nl/?url=$imageUrl';
+  }
 }

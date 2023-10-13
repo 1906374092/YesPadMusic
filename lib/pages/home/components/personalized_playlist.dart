@@ -13,20 +13,22 @@ class PersonalizedPlaylist extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenWidth = SizeUtil.screenWidth(context);
-    double itemWidth = screenWidth / 5;
-    double aspectRatio = (itemWidth + 55) / itemWidth;
+    double itemWidth = SizeUtil.imageSize(context);
+    double aspectRatio = (itemWidth + 35) / itemWidth;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Header(title: listTitle),
         SizedBox(
           width: screenWidth,
-          height: (screenWidth / 5 + 55) * 2,
+          height: (SizeUtil.imageSize(context) + 70) * 2,
           child: GridView.builder(
             padding: const EdgeInsets.all(0),
             scrollDirection: Axis.horizontal,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2, childAspectRatio: aspectRatio),
+              crossAxisCount: 2,
+              childAspectRatio: aspectRatio,
+            ),
             itemCount: dataSorce.length,
             itemBuilder: (BuildContext context, int index) {
               PlayListModel model = dataSorce[index];

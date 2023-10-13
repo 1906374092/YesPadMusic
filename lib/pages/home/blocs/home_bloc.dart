@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:yes_play_music/pages/home/data/home_repository.dart';
 import 'package:yes_play_music/pages/home/models/album_model.dart';
@@ -39,7 +40,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 }
 
 @immutable
-sealed class HomeState {
+sealed class HomeState extends Equatable {
   get hotPlayList;
   get personalizedPlayList;
   get personalFM;
@@ -61,6 +62,9 @@ class InitialState extends HomeState {
   get newAlbumList => [];
   @override
   get topList => [];
+
+  @override
+  List<Object?> get props => [];
 }
 
 class SuccessState extends HomeState {
@@ -91,6 +95,15 @@ class SuccessState extends HomeState {
   get newAlbumList => newAlbumListData;
   @override
   get topList => topListData;
+  @override
+  List<Object?> get props => [
+        hotPlaylistData,
+        personalizedPlaylistData,
+        personalFMData,
+        artistListData,
+        newAlbumListData,
+        topListData
+      ];
 }
 
 class ErrorState extends HomeState {
@@ -110,4 +123,6 @@ class ErrorState extends HomeState {
   get newAlbumList => [];
   @override
   get topList => [];
+  @override
+  List<Object?> get props => [];
 }

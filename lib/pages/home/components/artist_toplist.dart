@@ -25,7 +25,7 @@ class ArtistToplist extends StatelessWidget {
             ),
             SizedBox(
               width: SizeUtil.screenWidth(context),
-              height: SizeUtil.screenWidth(context) / 5 + 55,
+              height: imageSize + 75,
               child: ListView.builder(
                   padding: const EdgeInsets.all(0),
                   scrollDirection: Axis.horizontal,

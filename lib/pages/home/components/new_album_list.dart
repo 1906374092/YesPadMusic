@@ -11,15 +11,15 @@ class NewAlbumList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenWidth = SizeUtil.screenWidth(context);
-    double itemWidth = screenWidth / 5;
-    double aspectRatio = (itemWidth + 80) / itemWidth;
+    double itemWidth = SizeUtil.imageSize(context);
+    double aspectRatio = (itemWidth + 62) / itemWidth;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Header(title: '新专速递'),
         SizedBox(
           width: screenWidth,
-          height: (screenWidth / 5 + 80) * 2,
+          height: (SizeUtil.imageSize(context) + 110) * 2,
           child: GridView.builder(
             padding: const EdgeInsets.all(0),
             scrollDirection: Axis.horizontal,

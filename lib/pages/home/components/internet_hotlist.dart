@@ -24,7 +24,7 @@ class SongsList extends StatelessWidget {
             ),
             SizedBox(
               width: SizeUtil.screenWidth(context),
-              height: SizeUtil.screenWidth(context) / 5 + 55,
+              height: SizeUtil.imageSize(context) + 70,
               child: ListView.builder(
                 padding: const EdgeInsets.all(0),
                 scrollDirection: Axis.horizontal,

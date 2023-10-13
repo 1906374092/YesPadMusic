@@ -1,4 +1,5 @@
 import 'package:yes_play_music/pages/home/models/artist_model.dart';
+import 'package:yes_play_music/utils/tools.dart';
 
 class AlbumModel {
   final num id;
@@ -15,7 +16,7 @@ class AlbumModel {
     return AlbumModel(
         id: map['id'],
         name: map['name'],
-        picUrl: map['picUrl'],
+        picUrl: Tools.imageTransfer(map['picUrl']),
         artist: map.containsKey('artist')
             ? ArtistModel.fromMap(map['artist'])
             : null);
