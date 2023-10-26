@@ -2,7 +2,10 @@ import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yes_play_music/pages/player/blocs/player_bloc.dart';
 import 'package:yes_play_music/component/player/play_button.dart';
+import 'package:yes_play_music/pages/home/blocs/home_bloc.dart';
 import 'package:yes_play_music/pages/home/components/header.dart';
 import 'package:yes_play_music/pages/home/components/personal_fm.dart';
 import 'package:yes_play_music/pages/home/models/playlist_model.dart';
@@ -92,10 +95,10 @@ class _ForYouWidgetState extends State<ForYouWidget> {
                             left: 30, right: 30, bottom: 30),
                         width: imageWidth,
                         height: imageHeight,
-                        child: const Row(
+                        child: Row(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               width: 100,
                               height: 100,
                               child: Text('每日推荐',
@@ -104,8 +107,17 @@ class _ForYouWidgetState extends State<ForYouWidget> {
                                       fontSize: 35,
                                       fontWeight: FontWeight.bold)),
                             ),
-                            Spacer(),
-                            BlurPlayButton(size: 50)
+                            const Spacer(),
+                            BlurPlayButton(
+                              size: 50,
+                              onPressed: () {
+                                context.read<HomeBloc>().add(
+                                    OnPlaySongWithPlayListModelEvent(
+                                        playListModel: model,
+                                        musicPlayerBloc:
+                                            context.read<MusicPlayerBloc>()));
+                              },
+                            )
                           ],
                         )),
                   ],

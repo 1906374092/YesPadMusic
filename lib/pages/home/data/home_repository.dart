@@ -2,6 +2,7 @@ import 'package:yes_play_music/api/index.dart';
 import 'package:yes_play_music/pages/home/models/album_model.dart';
 import 'package:yes_play_music/pages/home/models/artist_model.dart';
 import 'package:yes_play_music/pages/home/models/playlist_model.dart';
+import 'package:yes_play_music/pages/home/models/song_detail_model.dart';
 import 'package:yes_play_music/pages/home/models/song_model.dart';
 
 class HomeRepository {
@@ -65,6 +66,17 @@ class HomeRepository {
     datalist.shuffle();
     for (Map element in datalist) {
       models.add(PlayListModel.fromMap(element));
+    }
+    return models;
+  }
+
+  //歌单详情
+  Future<List<SongDetailModel>> getPlayListDetail(
+      {required num playListId}) async {
+    Map result = await API.playList.getPlayListDetail(playListId: playListId);
+    List<SongDetailModel> models = [];
+    for (Map element in result['songs']) {
+      models.add(SongDetailModel.fromMap(element));
     }
     return models;
   }

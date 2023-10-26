@@ -1,7 +1,5 @@
-import 'dart:convert';
-import 'dart:typed_data';
-
 import 'package:yes_play_music/api/index.dart';
+import 'package:yes_play_music/pages/login/models/login_model.dart';
 
 class QRCodeLoginRepository {
   late String qrKey;
@@ -16,8 +14,8 @@ class QRCodeLoginRepository {
     return qrUrlString;
   }
 
-  Future<num> checkLoginStatus() async {
+  Future<LoginModel> checkLoginStatus() async {
     Map result = await API.login.loginCheckRequest(qrKey);
-    return result['code'];
+    return LoginModel.fromMap(result);
   }
 }

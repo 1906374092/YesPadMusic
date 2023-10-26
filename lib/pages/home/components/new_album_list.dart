@@ -12,7 +12,7 @@ class NewAlbumList extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenWidth = SizeUtil.screenWidth(context);
     double itemWidth = SizeUtil.imageSize(context);
-    double aspectRatio = (itemWidth + 62) / itemWidth;
+    double aspectRatio = (itemWidth + 69) / itemWidth;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

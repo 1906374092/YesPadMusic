@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:yes_play_music/config/config.dart';
+import 'package:yes_play_music/utils/database.dart';
 import 'package:yes_play_music/utils/global.dart';
 
 class HttpManager {
@@ -34,7 +35,7 @@ class HttpManager {
     _dio.options.connectTimeout = const Duration(seconds: 60);
     _dio.options.receiveTimeout = const Duration(seconds: 60);
     _dio.interceptors.add(CustomInterceptors());
-    //cookie_manager
+    //cookie_manager /data/user/0/com.example.yes_play_music/app_flutter
     try {
       final Directory appDocDir = await getApplicationDocumentsDirectory();
       final String appDocPath = appDocDir.path;
@@ -43,7 +44,9 @@ class HttpManager {
         storage: FileStorage("$appDocPath/.cookies/"),
       );
       _dio.interceptors.add(CookieManager(jar));
-    } catch (e) {}
+    } catch (e) {
+      logger.e(e);
+    }
   }
 
   dynamic post(String path, {required Map<String, dynamic> params}) async {
@@ -77,13 +80,28 @@ class HttpManager {
 class CustomInterceptors extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    logger.d(options.path);
+    String? cookie = DataBase.cookie;
+    if (cookie != null && cookie != '') {
+      if (options.method == 'GET') {
+        options.queryParameters.addAll({'cookie': Uri.encodeFull(cookie)});
+      } else if (options.method == 'POST') {
+        options.extra.addAll({'cookie': cookie});
+      }
+    }
+    // logger.i(options.uri);
     super.onRequest(options, handler);
   }
 
   @override
-  void onResponse(Response response, ResponseInterceptorHandler handler) {
-    // logger.d(response.data);
+  void onResponse(Response response, ResponseInterceptorHandler handler) async {
+    if ((response.data is Map) &&
+        (response.data as Map).containsKey('cookie') &&
+        response.data['cookie'] != '') {
+      await DataBase.saveCookie(response.data['cookie']);
+    }
+    if (response.statusCode == 401 || response.statusCode == 403) {
+      await DataBase.removeCookie();
+    }
     super.onResponse(response, handler);
   }
 

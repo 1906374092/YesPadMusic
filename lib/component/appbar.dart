@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yes_play_music/blocs/theme.dart';
+import 'package:yes_play_music/blocs/theme_bloc.dart';
 
 class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final Widget? leftBtn;
   final List<Widget>? actions;
   final PreferredSizeWidget? bottom;
+  final Function()? closeCallback;
   const CommonAppBar(
       {super.key,
       required this.title,
       this.leftBtn,
       this.actions = const [],
-      this.bottom});
+      this.bottom,
+      this.closeCallback});
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +30,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
           leading: leftBtn ??
               IconButton(
                   onPressed: () {
+                    closeCallback!();
                     Navigator.of(context).pop();
                   },
                   icon: Icon(

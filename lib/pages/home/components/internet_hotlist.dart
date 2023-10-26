@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yes_play_music/blocs/theme.dart';
+import 'package:yes_play_music/blocs/theme_bloc.dart';
 import 'package:yes_play_music/component/music/album_cover.dart';
 import 'package:yes_play_music/pages/home/components/header.dart';
 import 'package:yes_play_music/pages/home/models/playlist_model.dart';

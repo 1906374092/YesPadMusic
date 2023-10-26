@@ -1,3 +1,8 @@
+import 'dart:convert';
+import 'package:convert/convert.dart';
+import 'package:crypto/crypto.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+
 class Tools {
   static bool buttonTapLock = false;
 
@@ -68,7 +73,23 @@ class Tools {
   }
 
   //图片防盗链
-  static String imageTransfer(String imageUrl) {
-    return 'https://images.weserv.nl/?url=$imageUrl';
+  static String imageTransfer(String imageUrl, {int size = 300}) {
+    return 'https://images.weserv.nl/?url=$imageUrl?param=${size}y$size';
+  }
+
+  static showToast(String message) {
+    EasyLoading.showToast(message);
+  }
+
+  // md5 加密
+  static String generateMd5(String data) {
+    var content = const Utf8Encoder().convert(data);
+    var digest = md5.convert(content);
+    // 这里其实就是 digest.toString()
+    return hex.encode(digest.bytes);
+  }
+
+  static String placeholderImageUrl() {
+    return 'https://gimg3.baidu.com/topone/src=https%3A%2F%2Fbkimg.cdn.bcebos.com%2Fpic%2F838ba61ea8d3fd1fa92d29173d4e251f95ca5ff3%3Fx-bce-process%3Dimage%2Fresize%2Cm_pad%2Cw_348%2Ch_348%2Ccolor_ffffff&refer=http%3A%2F%2Fwww.baidu.com&app=2011&size=f200,200&n=0&g=0n&er=404&q=75&fmt=auto&maxorilen2heic=2000000?sec=1698253200&t=a6023e6698ac78176f75d728169641c0';
   }
 }

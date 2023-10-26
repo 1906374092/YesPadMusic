@@ -1,11 +1,15 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:yes_play_music/blocs/auth.dart';
-import 'package:yes_play_music/blocs/theme.dart';
+import 'package:yes_play_music/blocs/auth_bloc.dart';
+import 'package:yes_play_music/pages/player/blocs/player_bloc.dart';
+import 'package:yes_play_music/blocs/theme_bloc.dart';
 import 'package:yes_play_music/config/config.dart';
-import 'package:yes_play_music/pages/player/player_bar.dart';
+import 'package:yes_play_music/pages/player/components/player_bar.dart';
+import 'package:yes_play_music/pages/player/data/repository.dart';
 import 'package:yes_play_music/pages/root.dart';
+import 'package:yes_play_music/pages/user/data/user_repository.dart';
 import 'package:yes_play_music/router/router.dart';
 
 void main() {
@@ -20,26 +24,34 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-  Config()..;
   final _router = AppRouter();
-  static final _authBloc = AuthBloc();
+  static final _authBloc = AuthBloc(repository: UserRepository())
+    ..add(LoginEvent());
   static final _themeBloc = ThemeBloc();
+  static final _musicPlayerBloc = MusicPlayerBloc(
+      repository: MusicPlayerRepository(audioPlayer: AudioPlayer()));
+  @override
+  void initState() {
+    Config().setup();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return FlutterEasyLoading(
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider.value(value: _authBloc),
-          BlocProvider.value(value: _themeBloc)
-        ],
-        child: MaterialApp(
-          title: 'Yes Play Music',
-          onGenerateRoute: _router.onGenerateRoute,
-          home: const Stack(
-            alignment: Alignment.bottomCenter,
-            children: [RootPage(), PlayerBar()],
-          ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider.value(value: _authBloc),
+        BlocProvider.value(value: _themeBloc),
+        BlocProvider.value(value: _musicPlayerBloc)
+      ],
+      child: MaterialApp(
+        title: 'Yes Play Music',
+        onGenerateRoute: _router.onGenerateRoute,
+        home: const Stack(
+          alignment: Alignment.bottomCenter,
+          children: [RootPage(), PlayerBar()],
         ),
+        builder: EasyLoading.init(),
       ),
     );
   }
@@ -49,6 +61,7 @@ class _MainAppState extends State<MainApp> {
     _authBloc.close();
     _themeBloc.close();
     _router.dispose();
+    _musicPlayerBloc.close();
     super.dispose();
   }
 }

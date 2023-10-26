@@ -18,4 +18,7 @@ class ColorUtil {
       Random.secure().nextInt(200),
     );
   }
+
+  static get commonLightGrey => const Color.fromRGBO(142, 142, 142, 1);
+  static get commonLightBlue => const Color.fromRGBO(73, 166, 245, 1);
 }

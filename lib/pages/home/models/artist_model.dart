@@ -9,6 +9,8 @@ class ArtistModel {
     return ArtistModel(
         id: map['id'],
         name: map['name'],
-        picUrl: Tools.imageTransfer(map['picUrl']));
+        picUrl: map.containsKey('picUrl')
+            ? Tools.imageTransfer(map['picUrl'])
+            : '');
   }
 }

@@ -5,11 +5,20 @@ import 'package:yes_play_music/pages/home/data/home_repository.dart';
 import 'package:yes_play_music/pages/home/models/album_model.dart';
 import 'package:yes_play_music/pages/home/models/artist_model.dart';
 import 'package:yes_play_music/pages/home/models/playlist_model.dart';
+import 'package:yes_play_music/pages/home/models/song_detail_model.dart';
 import 'package:yes_play_music/pages/home/models/song_model.dart';
+import 'package:yes_play_music/pages/player/blocs/player_bloc.dart';
 
 sealed class HomeEvent {}
 
 final class OnGetDataEvent extends HomeEvent {}
+
+final class OnPlaySongWithPlayListModelEvent extends HomeEvent {
+  final PlayListModel playListModel;
+  final MusicPlayerBloc musicPlayerBloc;
+  OnPlaySongWithPlayListModelEvent(
+      {required this.playListModel, required this.musicPlayerBloc});
+}
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final HomeRepository repository;
@@ -35,6 +44,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       } catch (e) {
         emit(ErrorState(errorMessage: '请求失败请稍后再试'));
       }
+    });
+    on<OnPlaySongWithPlayListModelEvent>((event, emit) async {
+      PlayListModel model = event.playListModel;
+      MusicPlayerBloc musicPlayerBloc = event.musicPlayerBloc;
+      List<SongDetailModel> songs =
+          await repository.getPlayListDetail(playListId: model.id);
+      musicPlayerBloc.add(StartPlayMusicAction(songDetail: songs[0]));
     });
   }
 }

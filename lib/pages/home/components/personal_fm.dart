@@ -61,7 +61,7 @@ class PersonalFM extends StatelessWidget {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      const MusicControls(),
+                      const FMMusicControls(),
                       const Spacer(),
                       Icon(
                         Icons.radio,

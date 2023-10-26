@@ -12,4 +12,10 @@ class Validator {
         password.length >= 8 &&
         password.length <= 20;
   }
+
+  static bool checkEmail(String email) {
+    RegExp rule = RegExp(
+        r"^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$");
+    return rule.hasMatch(email);
+  }
 }

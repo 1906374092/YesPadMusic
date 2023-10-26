@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yes_play_music/blocs/theme.dart';
+import 'package:yes_play_music/blocs/theme_bloc.dart';
 import 'package:yes_play_music/utils/size.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
