@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:permission_handler/permission_handler.dart';
 import 'package:yes_play_music/utils/global.dart';
 
@@ -14,8 +12,8 @@ class Config {
     if (await Permission.audio.request().isGranted) {
       // Either the permission was already granted before or the user just granted it.
     }
-    bool isShown2 = await Permission.videos.shouldShowRequestRationale;
-    bool isShown = await Permission.audio.shouldShowRequestRationale;
+    await Permission.videos.shouldShowRequestRationale;
+    await Permission.audio.shouldShowRequestRationale;
 
 // You can request multiple permissions at once.
     Map<Permission, PermissionStatus> statuses =
