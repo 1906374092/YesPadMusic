@@ -1,7 +1,7 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yes_play_music/blocs/theme_bloc.dart';
+import 'package:yes_play_music/pages/player/blocs/player_bloc.dart';
 
 class FMMusicControls extends StatelessWidget {
   final bool? white;
@@ -44,43 +44,65 @@ class FMMusicControls extends StatelessWidget {
 
 class CommonMusicControls extends StatelessWidget {
   final double? size;
-  final PlayerState playerState;
+  final Color? color;
 
-  const CommonMusicControls(
-      {super.key, this.size = 40, required this.playerState});
+  const CommonMusicControls({super.key, this.size = 40, this.color});
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ThemeBloc, ThemeState>(builder: (context, themeState) {
-      return Container(
-        child: Row(
-          children: [
-            IconButton(
-                iconSize: size,
-                onPressed: () {},
-                icon: Icon(
-                  Icons.skip_previous_rounded,
-                  color: themeState.mainTextColor,
-                )),
-            IconButton(
-                iconSize: size,
-                onPressed: () {},
-                icon: Icon(
-                  playerState == PlayerState.playing
-                      ? Icons.pause_rounded
-                      : Icons.play_arrow_rounded,
-                  color: themeState.mainTextColor,
-                )),
-            IconButton(
-                iconSize: size,
-                onPressed: () {},
-                icon: Icon(
-                  Icons.skip_next_rounded,
-                  color: themeState.mainTextColor,
-                ))
-          ],
-        ),
-      );
+      return BlocBuilder<MusicPlayerBloc, MusicPlayerState>(
+          builder: (context, playerState) {
+        return Container(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              IconButton(
+                  iconSize: size,
+                  onPressed: () {
+                    context
+                        .read<MusicPlayerBloc>()
+                        .add(MusicPlayerPlayPreviousAction());
+                  },
+                  icon: Icon(
+                    Icons.skip_previous_rounded,
+                    color: color ?? themeState.darkBlueColor,
+                  )),
+              IconButton(
+                  iconSize: size,
+                  onPressed: () {
+                    if (playerState.playingStatus == PlayingStatus.playing) {
+                      context
+                          .read<MusicPlayerBloc>()
+                          .add(MusicPlayerPauseAction());
+                    } else {
+                      context
+                          .read<MusicPlayerBloc>()
+                          .add(MusicPlayerContinueAction());
+                    }
+                  },
+                  icon: Icon(
+                    playerState.playingStatus == PlayingStatus.playing
+                        ? Icons.pause_rounded
+                        : Icons.play_arrow_rounded,
+                    color: color ?? themeState.darkBlueColor,
+                  )),
+              IconButton(
+                  iconSize: size,
+                  onPressed: () {
+                    context
+                        .read<MusicPlayerBloc>()
+                        .add(MusicPlayerPlayNextAction());
+                  },
+                  icon: Icon(
+                    Icons.skip_next_rounded,
+                    color: color ?? themeState.darkBlueColor,
+                  ))
+            ],
+          ),
+        );
+      });
     });
   }
 }

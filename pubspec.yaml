@@ -27,6 +27,10 @@ dependencies:
   audioplayers: ^5.2.0
   real_volume: ^1.0.7
   permission_handler: ^11.0.1
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  card_swiper: ^3.0.1
+  easy_refresh: ^3.3.2+4
   
 dev_dependencies:
   flutter_test:
@@ -34,11 +38,18 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   bloc_test: ^9.1.4
   mocktail: ^1.0.0
+  hive_generator: ^2.0.1
+  build_runner: ^2.4.6
 
 flutter:
   uses-material-design: true
   assets:
     - lib/assets/images/
+
+  fonts:
+    - family: zhentan
+      fonts:
+        - asset: lib/assets/fonts/zhentan.ttf
 
 flutter_assets:
   assets_path: lib/assets/images/

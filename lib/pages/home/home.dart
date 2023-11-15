@@ -1,3 +1,4 @@
+import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yes_play_music/blocs/theme_bloc.dart';
@@ -22,23 +23,24 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return RefreshIndicator(
-      onRefresh: () async {
-        context.read<HomeBloc>().add(OnGetDataEvent());
-        await Future.delayed(const Duration(seconds: 1));
-      },
-      child: BlocBuilder<ThemeBloc, ThemeState>(
-        builder: (context, themeState) {
-          return BlocBuilder<HomeBloc, HomeState>(
-              buildWhen: (previous, current) => previous != current,
-              builder: (context, state) {
-                if (state is ErrorState) {
-                  return Center(
+    return BlocBuilder<ThemeBloc, ThemeState>(
+      builder: (context, themeState) {
+        return BlocBuilder<HomeBloc, HomeState>(
+            buildWhen: (previous, current) => previous != current,
+            builder: (context, state) {
+              if (state is ErrorState) {
+                return SingleChildScrollView(
+                  child: Center(
                     child: Text(state.errorMessage),
-                  );
-                } else if (state is SuccessState) {
+                  ),
+                );
+              } else if (state is SuccessState) {
+                return EasyRefresh.builder(onRefresh: () {
+                  context.read<HomeBloc>().add(OnGetDataEvent());
+                }, childBuilder: (context, physics) {
                   return SingleChildScrollView(
                       padding: const EdgeInsets.only(top: 15),
+                      physics: physics,
                       child: BlocBuilder<ThemeBloc, ThemeState>(
                         builder: (context, themeState) {
                           return Column(
@@ -58,19 +60,19 @@ class _HomePageState extends State<HomePage>
                               SongsList(
                                   listData: state.topListData,
                                   listTitle: '排行榜'),
-                              const Footer()
+                              const CommonFooter()
                             ],
                           );
                         },
                       ));
-                } else {
-                  return const Center(
-                    child: Loading(),
-                  );
-                }
-              });
-        },
-      ),
+                });
+              } else {
+                return const Center(
+                  child: Loading(),
+                );
+              }
+            });
+      },
     );
   }
 

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:yes_play_music/component/music/album_cover.dart';
+import 'package:yes_play_music/pages/discover/models/playlist_detail_model.dart';
 import 'package:yes_play_music/pages/home/components/header.dart';
-import 'package:yes_play_music/pages/home/models/playlist_model.dart';
 import 'package:yes_play_music/utils/size.dart';
 
 class PersonalizedPlaylist extends StatelessWidget {
   final String listTitle;
-  final List<PlayListModel> dataSorce;
+  final List<PlayListDetailModel> dataSorce;
   const PersonalizedPlaylist(
       {super.key, required this.listTitle, required this.dataSorce});
 
@@ -31,11 +31,17 @@ class PersonalizedPlaylist extends StatelessWidget {
             ),
             itemCount: dataSorce.length,
             itemBuilder: (BuildContext context, int index) {
-              PlayListModel model = dataSorce[index];
-              return AlbumCover(
-                  id: model.id,
-                  name: model.name,
-                  coverImageUrl: model.coverImgUrl);
+              PlayListDetailModel model = dataSorce[index];
+              return GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pushNamed('/playlist/detail',
+                      arguments: {'title': model.name, 'id': model.id});
+                },
+                child: AlbumCover(
+                    id: model.id,
+                    name: model.name,
+                    coverImageUrl: model.coverImgUrl),
+              );
             },
           ),
         ),

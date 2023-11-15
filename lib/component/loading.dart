@@ -14,13 +14,13 @@ class Loading extends StatefulWidget {
 class _LoadingState extends State<Loading> {
   @override
   void initState() {
-    EasyLoading.show(status: widget.status);
+    // EasyLoading.show(status: widget.status);
     super.initState();
   }
 
   @override
   void dispose() {
-    EasyLoading.dismiss();
+    // EasyLoading.dismiss();
     super.dispose();
   }
 

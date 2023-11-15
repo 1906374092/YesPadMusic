@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yes_play_music/blocs/theme_bloc.dart';
 import 'package:yes_play_music/component/music/album_cover.dart';
+import 'package:yes_play_music/pages/discover/models/playlist_detail_model.dart';
 import 'package:yes_play_music/pages/home/components/header.dart';
-import 'package:yes_play_music/pages/home/models/playlist_model.dart';
 import 'package:yes_play_music/utils/size.dart';
 
 class SongsList extends StatelessWidget {
-  final List<PlayListModel> listData;
+  final List<PlayListDetailModel> listData;
   final String listTitle;
   const SongsList({super.key, required this.listData, required this.listTitle});
 
@@ -30,11 +30,17 @@ class SongsList extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemCount: 5,
                 itemBuilder: (BuildContext context, int index) {
-                  PlayListModel model = listData[index];
-                  return AlbumCover(
-                      id: model.id,
-                      name: model.name,
-                      coverImageUrl: model.coverImgUrl);
+                  PlayListDetailModel model = listData[index];
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushNamed('/playlist/detail',
+                          arguments: {'title': model.name, 'id': model.id});
+                    },
+                    child: AlbumCover(
+                        id: model.id,
+                        name: model.name,
+                        coverImageUrl: model.coverImgUrl),
+                  );
                 },
               ),
             ),

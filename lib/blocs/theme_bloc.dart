@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:yes_play_music/utils/colorutil.dart';
+import 'package:yes_play_music/utils/database.dart';
 
 sealed class ThemeEvent {}
 
@@ -10,8 +11,14 @@ final class DarkThemeEvent extends ThemeEvent {}
 
 class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
   ThemeBloc() : super(LightThemeState()) {
-    on<LightThemeEvent>((event, emit) => emit(LightThemeState()));
-    on<DarkThemeEvent>((event, emit) => emit(DarkThemeState()));
+    on<LightThemeEvent>((event, emit) async {
+      await SettingBase.setDarkTheme(false);
+      emit(LightThemeState());
+    });
+    on<DarkThemeEvent>((event, emit) async {
+      await SettingBase.setDarkTheme(true);
+      emit(DarkThemeState());
+    });
   }
 }
 
@@ -23,6 +30,7 @@ sealed class ThemeState {
   get secondTextColor;
   get lightBlueColor;
   get darkBlueColor;
+  get settingBgColor;
 }
 
 final class LightThemeState extends ThemeState {
@@ -39,6 +47,9 @@ final class LightThemeState extends ThemeState {
   get lightBlueColor => ColorUtil.fromHex('#b3c5fd');
   @override
   get darkBlueColor => ColorUtil.fromHex('#304de3');
+
+  @override
+  get settingBgColor => ColorUtil.fromHex('#f3f3f6');
 }
 
 final class DarkThemeState extends ThemeState {
@@ -54,4 +65,7 @@ final class DarkThemeState extends ThemeState {
   get lightBlueColor => ColorUtil.fromHex('#b3c5fd');
   @override
   get darkBlueColor => ColorUtil.fromHex('#304de3');
+
+  @override
+  get settingBgColor => ColorUtil.fromHex('#2c2c2c');
 }

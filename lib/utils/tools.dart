@@ -92,4 +92,23 @@ class Tools {
   static String placeholderImageUrl() {
     return 'https://gimg3.baidu.com/topone/src=https%3A%2F%2Fbkimg.cdn.bcebos.com%2Fpic%2F838ba61ea8d3fd1fa92d29173d4e251f95ca5ff3%3Fx-bce-process%3Dimage%2Fresize%2Cm_pad%2Cw_348%2Ch_348%2Ccolor_ffffff&refer=http%3A%2F%2Fwww.baidu.com&app=2011&size=f200,200&n=0&g=0n&er=404&q=75&fmt=auto&maxorilen2heic=2000000?sec=1698253200&t=a6023e6698ac78176f75d728169641c0';
   }
+
+  static String timeStringFromNum(num timecount) {
+    num minute = timecount / 1000 ~/ 60;
+    num seconds = timecount ~/ 1000 % 60;
+    String minuteStr = minute > 9 ? minute.toString() : '0$minute';
+    String secondStr = seconds > 9 ? seconds.toString() : '0$seconds';
+    return '$minuteStr:$secondStr';
+  }
+
+  //00:00.00
+  static num timeCountFromString(String timeStr) {
+    List temp1 = timeStr.split(':');
+    num minute = num.parse((temp1[0] as String));
+    List temp2 = (temp1[1] as String).split('.');
+    num second = num.parse((temp2[0] as String));
+    num millSecond = num.parse((temp2[1] as String));
+
+    return minute * 60 * 1000 + second * 1000 + millSecond;
+  }
 }

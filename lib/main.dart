@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:yes_play_music/blocs/auth_bloc.dart';
+import 'package:yes_play_music/pages/local_playlist/components/local_playlist.dart';
 import 'package:yes_play_music/pages/player/blocs/player_bloc.dart';
 import 'package:yes_play_music/blocs/theme_bloc.dart';
 import 'package:yes_play_music/config/config.dart';
@@ -11,8 +12,11 @@ import 'package:yes_play_music/pages/player/data/repository.dart';
 import 'package:yes_play_music/pages/root.dart';
 import 'package:yes_play_music/pages/user/data/user_repository.dart';
 import 'package:yes_play_music/router/router.dart';
+import 'package:yes_play_music/utils/database.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  Config().setup();
   runApp(const MainApp());
 }
 
@@ -30,10 +34,16 @@ class _MainAppState extends State<MainApp> {
   static final _themeBloc = ThemeBloc();
   static final _musicPlayerBloc = MusicPlayerBloc(
       repository: MusicPlayerRepository(audioPlayer: AudioPlayer()));
+  // 用于路由返回监听
   @override
   void initState() {
-    Config().setup();
+    setTheme();
     super.initState();
+  }
+
+  setTheme() async {
+    bool isDark = await SettingBase.getDarkTheme();
+    _themeBloc.add(isDark ? DarkThemeEvent() : LightThemeEvent());
   }
 
   @override
@@ -47,11 +57,15 @@ class _MainAppState extends State<MainApp> {
       child: MaterialApp(
         title: 'Yes Play Music',
         onGenerateRoute: _router.onGenerateRoute,
-        home: const Stack(
-          alignment: Alignment.bottomCenter,
-          children: [RootPage(), PlayerBar()],
+        home: const Scaffold(
+          endDrawer: LocalPlaylist(),
+          body: Stack(
+            alignment: Alignment.bottomCenter,
+            children: [RootPage(), PlayerBar()],
+          ),
         ),
         builder: EasyLoading.init(),
+        navigatorObservers: [Config.routeObserver],
       ),
     );
   }

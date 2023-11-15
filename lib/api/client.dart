@@ -1,9 +1,7 @@
-import 'dart:io';
-
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:yes_play_music/config/config.dart';
 import 'package:yes_play_music/utils/database.dart';
 import 'package:yes_play_music/utils/global.dart';
@@ -37,13 +35,13 @@ class HttpManager {
     _dio.interceptors.add(CustomInterceptors());
     //cookie_manager /data/user/0/com.example.yes_play_music/app_flutter
     try {
-      final Directory appDocDir = await getApplicationDocumentsDirectory();
-      final String appDocPath = appDocDir.path;
-      final jar = PersistCookieJar(
-        ignoreExpires: true,
-        storage: FileStorage("$appDocPath/.cookies/"),
-      );
-      _dio.interceptors.add(CookieManager(jar));
+      // final Directory appDocDir = await getApplicationDocumentsDirectory();
+      // final String appDocPath = appDocDir.path;
+      // final jar = PersistCookieJar(
+      //   ignoreExpires: true,
+      //   storage: FileStorage("$appDocPath/.cookies/"),
+      // );
+      _dio.interceptors.add(CookieManager(CookieJar(ignoreExpires: true)));
     } catch (e) {
       logger.e(e);
     }
@@ -80,7 +78,7 @@ class HttpManager {
 class CustomInterceptors extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    String? cookie = DataBase.cookie;
+    String? cookie = CookieBase.cookie;
     if (cookie != null && cookie != '') {
       if (options.method == 'GET') {
         options.queryParameters.addAll({'cookie': Uri.encodeFull(cookie)});
@@ -97,10 +95,10 @@ class CustomInterceptors extends Interceptor {
     if ((response.data is Map) &&
         (response.data as Map).containsKey('cookie') &&
         response.data['cookie'] != '') {
-      await DataBase.saveCookie(response.data['cookie']);
+      await CookieBase.saveCookie(response.data['cookie']);
     }
     if (response.statusCode == 401 || response.statusCode == 403) {
-      await DataBase.removeCookie();
+      await CookieBase.removeCookie();
     }
     super.onResponse(response, handler);
   }
@@ -108,5 +106,6 @@ class CustomInterceptors extends Interceptor {
   @override
   Future onError(DioException err, ErrorInterceptorHandler handler) async {
     super.onError(err, handler);
+    EasyLoading.showError(err.message ?? '未知错误');
   }
 }

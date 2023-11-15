@@ -8,7 +8,7 @@ class SizeUtil {
       MediaQuery.of(context).size.height;
 
   static double topBarHeight(BuildContext context) =>
-      MediaQuery.of(context).padding.top + 44.0;
+      MediaQuery.of(context).padding.top;
 
   static double imageSize(BuildContext context) {
     double flexSize = SizeUtil.screenWidth(context) / 5 - 15 * 2;

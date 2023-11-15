@@ -4,7 +4,9 @@ import 'package:yes_play_music/blocs/theme_bloc.dart';
 import 'package:yes_play_music/pages/player/blocs/player_bloc.dart';
 
 class PlayOrderButton extends StatelessWidget {
-  PlayOrderButton({super.key});
+  final double? size;
+  final Color? color;
+  PlayOrderButton({super.key, this.size, this.color});
   final List<LoopStatus> orders = [
     LoopStatus.sequence,
     LoopStatus.random,
@@ -22,10 +24,18 @@ class PlayOrderButton extends StatelessWidget {
           builder: (context, playerState) {
         return Container(
           child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                int currentIndex = orders.indexOf(playerState.loopStatus);
+                int newIndex =
+                    currentIndex == orders.length - 1 ? 0 : currentIndex + 1;
+                context.read<MusicPlayerBloc>().add(
+                    MusicPlayerChangePlayOrderAction(
+                        loopStatus: orders[newIndex]));
+              },
               icon: Icon(
                 icons[orders.indexOf(playerState.loopStatus)],
-                color: themeState.mainTextColor,
+                color: color ?? themeState.mainTextColor,
+                size: size ?? 30,
               )),
         );
       });

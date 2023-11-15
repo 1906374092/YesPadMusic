@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:yes_play_music/pages/user/data/user_repository.dart';
 import 'package:yes_play_music/pages/user/models/user_model.dart';
 import 'package:yes_play_music/utils/database.dart';
@@ -20,7 +21,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc({required this.repository}) : super(LogoutState()) {
     on<LoginEvent>((event, emit) async {
       try {
-        String? cookie = await DataBase.getCookie();
+        String? cookie = await CookieBase.getCookie();
         if (cookie == null || cookie == '') return;
         UserModel user = await repository.getUserAccount();
         emit(LoginState(user: user));
@@ -30,7 +31,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     });
     on<LogoutEvent>((event, emit) {
-      DataBase.removeCookie();
+      HapticFeedback.lightImpact();
+      CookieBase.removeCookie();
       emit(LogoutState());
     });
   }

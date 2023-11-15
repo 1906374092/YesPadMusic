@@ -4,7 +4,8 @@ import 'package:yes_play_music/blocs/theme_bloc.dart';
 
 class MusicListButton extends StatelessWidget {
   final double? size;
-  const MusicListButton({super.key, this.size = 30});
+  final Color? color;
+  const MusicListButton({super.key, this.size = 30, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -12,10 +13,12 @@ class MusicListButton extends StatelessWidget {
       return Container(
         child: IconButton(
             iconSize: size,
-            onPressed: () {},
+            onPressed: () {
+              Scaffold.of(context).openEndDrawer();
+            },
             icon: Icon(
               Icons.queue_music_rounded,
-              color: themeState.mainTextColor,
+              color: color ?? themeState.mainTextColor,
             )),
       );
     });

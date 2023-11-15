@@ -1,10 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
+import 'package:yes_play_music/pages/discover/models/playlist_detail_model.dart';
 import 'package:yes_play_music/pages/home/data/home_repository.dart';
 import 'package:yes_play_music/pages/home/models/album_model.dart';
 import 'package:yes_play_music/pages/home/models/artist_model.dart';
-import 'package:yes_play_music/pages/home/models/playlist_model.dart';
 import 'package:yes_play_music/pages/home/models/song_detail_model.dart';
 import 'package:yes_play_music/pages/home/models/song_model.dart';
 import 'package:yes_play_music/pages/player/blocs/player_bloc.dart';
@@ -13,11 +13,11 @@ sealed class HomeEvent {}
 
 final class OnGetDataEvent extends HomeEvent {}
 
-final class OnPlaySongWithPlayListModelEvent extends HomeEvent {
-  final PlayListModel playListModel;
+final class OnPlaySongWithPlayListDetailModelEvent extends HomeEvent {
+  final PlayListDetailModel playListDetailModel;
   final MusicPlayerBloc musicPlayerBloc;
-  OnPlaySongWithPlayListModelEvent(
-      {required this.playListModel, required this.musicPlayerBloc});
+  OnPlaySongWithPlayListDetailModelEvent(
+      {required this.playListDetailModel, required this.musicPlayerBloc});
 }
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
@@ -25,15 +25,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc({required this.repository}) : super(InitialState()) {
     on<OnGetDataEvent>((event, emit) async {
       try {
-        List<PlayListModel> result =
+        List<PlayListDetailModel> result =
             await repository.getInternetHotPlayListData();
-        List<PlayListModel> personalizedModels =
+        List<PlayListDetailModel> personalizedModels =
             await repository.getPersonalizedPlayListData();
         List<SongModel> fmData = await repository.getPersonalFMData();
         List<ArtistModel> artistData = await repository.getTopArtistsData();
         List<AlbumModel> newAlbumListData =
             await repository.getNewAlbumListData();
-        List<PlayListModel> toplist = await repository.getTopListData();
+        List<PlayListDetailModel> toplist = await repository.getTopListData();
         emit(SuccessState(
             hotPlaylistData: result,
             personalizedPlaylistData: personalizedModels,
@@ -45,8 +45,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         emit(ErrorState(errorMessage: '请求失败请稍后再试'));
       }
     });
-    on<OnPlaySongWithPlayListModelEvent>((event, emit) async {
-      PlayListModel model = event.playListModel;
+    on<OnPlaySongWithPlayListDetailModelEvent>((event, emit) async {
+      PlayListDetailModel model = event.playListDetailModel;
       MusicPlayerBloc musicPlayerBloc = event.musicPlayerBloc;
       List<SongDetailModel> songs =
           await repository.getPlayListDetail(playListId: model.id);
@@ -84,12 +84,12 @@ class InitialState extends HomeState {
 }
 
 class SuccessState extends HomeState {
-  final List<PlayListModel> hotPlaylistData;
-  final List<PlayListModel> personalizedPlaylistData;
+  final List<PlayListDetailModel> hotPlaylistData;
+  final List<PlayListDetailModel> personalizedPlaylistData;
   final List<SongModel> personalFMData;
   final List<ArtistModel> artistListData;
   final List<AlbumModel> newAlbumListData;
-  final List<PlayListModel> topListData;
+  final List<PlayListDetailModel> topListData;
   SuccessState(
       {required this.hotPlaylistData,
       required this.personalizedPlaylistData,

@@ -28,11 +28,14 @@ class NewAlbumList extends StatelessWidget {
             itemCount: dataSource.length,
             itemBuilder: (BuildContext context, int index) {
               AlbumModel model = dataSource[index];
-              return AlbumCover(
-                id: model.id,
-                name: model.name,
-                coverImageUrl: model.picUrl,
-                artist: model.artist!.name,
+              return GestureDetector(
+                onTap: () {},
+                child: AlbumCover(
+                  id: model.id,
+                  name: model.name,
+                  coverImageUrl: model.picUrl,
+                  artist: model.artist!.name,
+                ),
               );
             },
           ),
