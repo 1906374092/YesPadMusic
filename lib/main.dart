@@ -38,6 +38,7 @@ class _MainAppState extends State<MainApp> {
   @override
   void initState() {
     setTheme();
+
     super.initState();
   }
 

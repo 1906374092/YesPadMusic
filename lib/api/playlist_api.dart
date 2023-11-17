@@ -5,7 +5,7 @@ class PlayListApi {
   Future<Map> getPlayListDetail(
       {required num playListId, int? limit = 20, int? page = 0}) async {
     return await HttpManager.instance.get(
-        '/playlist/track/all?id=$playListId&limit=$limit&offset=${page! * limit!}');
+        '/playlist/track/all?id=$playListId&limit=${limit! * (page! + 1)}');
   }
 
   //获取歌曲播放链接

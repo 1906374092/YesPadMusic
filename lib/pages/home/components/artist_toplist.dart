@@ -32,30 +32,36 @@ class ArtistToplist extends StatelessWidget {
                   itemCount: 5,
                   itemBuilder: (BuildContext context, int index) {
                     ArtistModel model = dataSource[index];
-                    return Container(
-                      padding: const EdgeInsets.all(15),
-                      height: 200,
-                      child: Column(
-                        children: [
-                          ClipOval(
-                            child: CachedNetworkImage(
-                              imageUrl: model.picUrl,
-                              width: imageSize,
-                              height: imageSize,
-                              fit: BoxFit.fitHeight,
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pushNamed('/artist_detail',
+                            arguments: {'id': model.id, 'name': model.name});
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(15),
+                        height: 200,
+                        child: Column(
+                          children: [
+                            ClipOval(
+                              child: CachedNetworkImage(
+                                imageUrl: model.picUrl,
+                                width: imageSize,
+                                height: imageSize,
+                                fit: BoxFit.fitHeight,
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Text(
-                              model.name,
-                              style: TextStyle(
-                                  color: themeState.mainTextColor,
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          )
-                        ],
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Text(
+                                model.name,
+                                style: TextStyle(
+                                    color: themeState.mainTextColor,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     );
                   }),

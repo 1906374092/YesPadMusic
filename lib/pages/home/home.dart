@@ -25,6 +25,15 @@ class _HomePageState extends State<HomePage>
     super.build(context);
     return BlocBuilder<ThemeBloc, ThemeState>(
       builder: (context, themeState) {
+        EasyRefresh.defaultHeaderBuilder = () => BezierCircleHeader(
+            triggerOffset: 50,
+            hapticFeedback: true,
+            foregroundColor: themeState.mainTextColor,
+            backgroundColor: themeState.backgroundColor);
+        EasyRefresh.defaultFooterBuilder = () => BezierFooter(
+            hapticFeedback: true,
+            backgroundColor: themeState.backgroundColor,
+            triggerOffset: 50);
         return BlocBuilder<HomeBloc, HomeState>(
             buildWhen: (previous, current) => previous != current,
             builder: (context, state) {

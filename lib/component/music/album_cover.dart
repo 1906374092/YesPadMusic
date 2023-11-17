@@ -23,15 +23,11 @@ class AlbumCover extends StatelessWidget {
       double imageSize = flexSize > 155 ? flexSize : 155;
       return Container(
         padding: const EdgeInsets.all(15),
-        width: imageSize + 30,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              clipBehavior: Clip.hardEdge,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-              ),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20),
               child: CachedNetworkImage(
                 imageUrl: coverImageUrl,
                 width: imageSize,

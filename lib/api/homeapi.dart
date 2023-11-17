@@ -7,8 +7,8 @@ class HomeApi {
   }
 
   //推荐歌单
-  Future<Map> getPersonalizedPlayList() async {
-    return await HttpManager.instance.get('/personalized?limit=10');
+  Future<Map> getPersonalizedPlayList({int? limit}) async {
+    return await HttpManager.instance.get('/personalized?limit=${limit ?? 10}');
   }
 
   //私人FM

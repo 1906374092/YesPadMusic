@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yes_play_music/pages/home/models/song_detail_model.dart';
 import 'package:yes_play_music/pages/player/data/repository.dart';
 import 'package:yes_play_music/pages/player/models/lyric_model.dart';
-import 'package:yes_play_music/utils/eventbus.dart';
 
 class LoadLyricsNotification {
   final SongDetailModel song;

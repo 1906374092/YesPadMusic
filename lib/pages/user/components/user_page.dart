@@ -22,7 +22,7 @@ class UserPage extends StatelessWidget {
         body: SingleChildScrollView(
           child: Container(
             color: themeState.backgroundColor,
-            child: Column(
+            child: const Column(
               children: [UserTopComponent(), SettingsComponet()],
             ),
           ),

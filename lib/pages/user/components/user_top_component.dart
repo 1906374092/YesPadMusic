@@ -62,7 +62,7 @@ class UserTopComponent extends StatelessWidget {
                               child:
                                   CachedNetworkImage(imageUrl: user.avatarUrl)),
                           Container(
-                            margin: EdgeInsets.only(bottom: 20),
+                            margin: const EdgeInsets.only(bottom: 20),
                             child: Text(
                               user.nickName,
                               style: TextStyle(

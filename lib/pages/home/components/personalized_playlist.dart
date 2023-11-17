@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:yes_play_music/component/music/album_cover.dart';
 import 'package:yes_play_music/pages/discover/models/playlist_detail_model.dart';
 import 'package:yes_play_music/pages/home/components/header.dart';
+import 'package:yes_play_music/pages/playlist_all/components/playlist_all.dart';
 import 'package:yes_play_music/utils/size.dart';
 
 class PersonalizedPlaylist extends StatelessWidget {
@@ -18,7 +19,13 @@ class PersonalizedPlaylist extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Header(title: listTitle),
+        Header(
+          title: listTitle,
+          action: () {
+            Navigator.of(context).pushNamed('/playlist_all',
+                arguments: {'type': PlaylistType.recommend, 'category': null});
+          },
+        ),
         SizedBox(
           width: screenWidth,
           height: (SizeUtil.imageSize(context) + 70) * 2,

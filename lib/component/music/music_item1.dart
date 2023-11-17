@@ -66,6 +66,7 @@ class MusicItem1 extends StatelessWidget {
                           Visibility(
                               visible: song.fee == 1, child: const VipIcon()),
                           SizedBox(
+                            width: SizeUtil.screenWidth(context) / 8,
                             child: Text(
                               ArtistModel.getArtistStrings(song.artists),
                               overflow: TextOverflow.ellipsis,

@@ -44,7 +44,7 @@ class DiscoverBloc extends Bloc<DiscoverEvent, DiscoverState> {
           ColorUtil.getRandomColor(),
           ColorUtil.getRandomColor(),
           ColorUtil.getRandomColor(),
-        ], categories: [])) {
+        ], categories: const [])) {
     on<DiscoverCardScrolledEvent>((event, emit) {
       emit(state.copyWith(newBackgroundColor: [
         ColorUtil.getRandomColor(),

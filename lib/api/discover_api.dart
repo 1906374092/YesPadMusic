@@ -6,8 +6,9 @@ class DiscoverAPI {
     return await HttpManager.instance.get('/playlist/highquality/tags');
   }
 
-  Future<Map> getPlaylistWithCategory({required String category}) async {
+  Future<Map> getPlaylistWithCategory(
+      {required String category, int? limit = 5}) async {
     return await HttpManager.instance
-        .get('/top/playlist/highquality?limit=5&cat=$category');
+        .get('/top/playlist/highquality?limit=$limit&cat=$category');
   }
 }
