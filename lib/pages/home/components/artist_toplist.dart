@@ -51,7 +51,7 @@ class ArtistToplist extends StatelessWidget {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(10.0),
+                              padding: const EdgeInsets.all(9.0),
                               child: Text(
                                 model.name,
                                 style: TextStyle(
