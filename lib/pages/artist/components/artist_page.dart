@@ -10,7 +10,6 @@ import 'package:yes_play_music/pages/artist/components/artist_info_component.dar
 import 'package:yes_play_music/pages/artist/components/artist_similar_component.dart';
 import 'package:yes_play_music/pages/artist/data/artist_repository.dart';
 import 'package:yes_play_music/pages/player/components/mini_player_component.dart';
-import 'package:yes_play_music/utils/global.dart';
 
 class ArtistPage extends StatefulWidget {
   final num id;

@@ -1,39 +1,21 @@
-# yes_play_music
+# Yes Pad Music
+#### 软件简介
+**一个平板端开源网易云音乐,灵感来源于PC端跨平台第三方网易云[Yes Play Music](https://github.com/qier222/YesPlayMusic)**
 
 #### 介绍
-{**以下是 Gitee 平台说明，您可以替换此简介**
-Gitee 是 OSCHINA 推出的基于 Git 的代码托管平台（同时支持 SVN）。专为开发者提供稳定、高效、安全的云端软件开发协作平台
-无论是个人、团队、或是企业，都能够用 Gitee 实现代码托管、项目管理、协作开发。企业项目请看 [https://gitee.com/enterprises](https://gitee.com/enterprises)}
+项目起因是我有个老款的遥遥领先的平板,想用平板听歌,但是安卓平板的网易云不是单独的平板端，是手机端适配的，体验挺差。于是就萌生了写一个平板端的网易云音乐的想法,于是就有了Yes Pad Music,目前项目处于开发阶段,登录和音乐播放等主体功能已经完成，后续会不断完善。
 
 #### 软件架构
-软件架构说明
+本项目使用flutter编写，带给你丝滑的交互体验。使用bloc做状态管理框架，方便后续功能扩展。后端接口是著名的[网易云开源API](https://neteasecloudmusicapi.vercel.app/),**买不起服务器没有自己部署，目前项目内配置的是搜索来的域名，仅供学习交流。**
 
 
 #### 安装教程
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+1.  执行pubget安装flutter依赖
+2.  执行flutter run运行项目
+3.  项目目前没有做竖屏适配，本意是专门的平板应用，请勿在手机上尝试运行。
 
-#### 使用说明
+#### 运行效果
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+![image]
 
-#### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
-
-
-#### 特技
-
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
