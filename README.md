@@ -17,8 +17,8 @@
 
 #### 运行效果
 **视频一**
-<video src="https://hs.afbza.cn/mqrcode//296969//1705993631_8136169667_1705993581804.mov">
+<video src="https://hs.afbza.cn/mqrcode/296969/1705993631_8136169667_1705993581804.mov">
 
 **视频二**
-<video src="https://hs.afbza.cn/mqrcode//296969//1705993631_1538935532_1705993589969.mov">
+<video src="https://hs.afbza.cn/mqrcode/296969/1705993631_1538935532_1705993589969.mov">
 
