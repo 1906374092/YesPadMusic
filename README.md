@@ -20,5 +20,5 @@
 [视频地址](https://a.afbza.cn/sqrcode/video?short=Z8XBGm&domain=f.afbkw.cn&sign=2ee3bd7cfb2038287fe06d09d66ba809)
 
 **二维码**
-![Alt text](image.png)
+![Alt text](./下载.png)
 
