@@ -16,9 +16,15 @@
 3.  项目目前没有做竖屏适配，本意是专门的平板应用，请勿在手机上尝试运行。
 
 #### 运行效果
+
 **演示视频**
+
 [视频地址](https://a.afbza.cn/sqrcode/video?short=Z8XBGm&domain=f.afbkw.cn&sign=2ee3bd7cfb2038287fe06d09d66ba809)
 
-**二维码**
+**视频二维码**
+
 ![Alt text](./下载.png)
 
+**安卓apk下载二维码**
+
+![](./5ZFGYj.png)
